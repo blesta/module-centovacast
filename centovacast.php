@@ -352,7 +352,7 @@ class Centovacast extends Module
     {
         return [
             'module' => ['hostname', 'server_name'],
-            'package' => ['servertype', 'apptypes', 'maxclients', 'maxbitrate', 'transferlimit', 'diskquota'],
+            'package' => ['servertype', 'apptypes', 'usesource', 'maxclients', 'maxbitrate', 'transferlimit', 'diskquota'],
             'service' => [
                 'centovacast_hostname',
                 'centovacast_username',
