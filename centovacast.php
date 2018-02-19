@@ -13,7 +13,7 @@ class Centovacast extends Module
     /**
      * @var string The version of this module
      */
-    private static $version = '1.1.0';
+    private static $version = '1.1.1';
     /**
      * @var string The authors of this module
      */
@@ -165,7 +165,7 @@ class Centovacast extends Module
 
         $fields = new ModuleFields();
 
-        // Set the CentovaCast package as a selectable option
+        // Set the CentovaCast server type as a selectable option
         $servertype = $fields->label(
             Language::_('Centovacast.package_fields.servertype', true),
             'centovacast_servertype'
@@ -179,6 +179,36 @@ class Centovacast extends Module
             )
         );
         $fields->setField($servertype);
+
+        // Set the CentovaCast Auto DJ type as a selectable option
+        $apptypes = $fields->label(
+            Language::_('Centovacast.package_fields.apptypes', true),
+            'centovacast_apptypes'
+        );
+        $apptypes->attach(
+            $fields->fieldSelect(
+                'meta[apptypes]',
+                $this->getAppTypes(),
+                $this->Html->ifSet($vars->meta['apptypes']),
+                ['id' => 'centovacast_apptypes']
+            )
+        );
+        $fields->setField($apptypes);
+
+        // Set the CentovaCast Auto DJ capabilities as a selectable option
+        $usesource = $fields->label(
+            Language::_('Centovacast.package_fields.usesource', true),
+            'centovacast_usesource'
+        );
+        $usesource->attach(
+            $fields->fieldSelect(
+                'meta[usesource]',
+                $this->getSourceCapabilities(),
+                $this->Html->ifSet($vars->meta['usesource']),
+                ['id' => 'centovacast_usesource']
+            )
+        );
+        $fields->setField($usesource);
 
         // Create maxclients label
         $maxclients = $fields->label(
@@ -274,6 +304,36 @@ class Centovacast extends Module
     }
 
     /**
+     * Gets a list of available app types
+     *
+     * @return array A key/value array of available app types and their languages
+     */
+    private function getAppTypes()
+    {
+        return [
+            '' => 'None',
+            'icescc' => 'IceCast CC',
+            'sctrans' => 'ShoutCast Trans',
+            'sctrans2' => 'ShoutCast Trans 2',
+            'liquidsoap' => 'Liquidsoap'
+        ];
+    }
+
+    /**
+     * Gets a list of autoDJ capabilities options
+     *
+     * @return array A key/value array of available options and their languages
+     */
+    private function getSourceCapabilities()
+    {
+        return [
+            '0' => 'Permitted, but disabled by default',
+            '1' => 'Permitted, and enabled by default',
+            '2' => 'Prohibited'
+        ];
+    }
+
+    /**
      * Returns an array of key values for fields stored for a module, package,
      * and service under this module, used to substitute those keys with their
      * actual module, package, or service meta values in related emails.
@@ -292,7 +352,7 @@ class Centovacast extends Module
     {
         return [
             'module' => ['hostname', 'server_name'],
-            'package' => ['servertype', 'maxclients', 'maxbitrate', 'transferlimit', 'diskquota'],
+            'package' => ['servertype', 'apptypes', 'maxclients', 'maxbitrate', 'transferlimit', 'diskquota'],
             'service' => [
                 'centovacast_hostname',
                 'centovacast_username',
@@ -1898,6 +1958,18 @@ class Centovacast extends Module
                 'valid' => [
                     'rule' => ['in_array', array_keys($this->getServerTypes())],
                     'message' => Language::_('Centovacast.!error.meta[servertype].valid', true),
+                ]
+            ],
+            'meta[apptypes]' => [
+                'valid' => [
+                    'rule' => ['in_array', array_keys($this->getAppTypes())],
+                    'message' => Language::_('Centovacast.!error.meta[apptypes].valid', true),
+                ]
+            ],
+            'meta[usesource]' => [
+                'valid' => [
+                    'rule' => ['in_array', array_keys($this->getSourceCapabilities())],
+                    'message' => Language::_('Centovacast.!error.meta[usesource].valid', true),
                 ]
             ],
             'meta[maxclients]' => [
