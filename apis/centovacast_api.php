@@ -102,6 +102,8 @@ class CentovacastApi
      *     - genre: Specifies the genre of the stream.
      *     - autostart: Specifies whether or not the stream should automatically be started after provisioning.
      *     - servertype: Specifies the streaming server type for the stream.
+     *     - apptypes: Specifies the supporting application types for autoDJ support.
+     *     - usesource: Specifies whether or not the stream uses autoDJ capabilities.
      * @return stdClass An object containing the request response
      */
     public function createAccount($params)
