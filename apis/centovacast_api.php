@@ -119,6 +119,7 @@ class CentovacastApi
      *     - hostname: Specifies the hostname for the stream.
      *     - ipaddress: Specifies the IP address on which the streaming server should listen.
      *     - port: Specifies the port number on which the streaming server should listen.
+     *     - rpchostid: Specifies the ID number of the hosting server on which this account should be created.
      *     - adminpassword: Specifies the password for this stream.
      *     - sourcepassword: Specifies the source password for this stream.
      *     - maxclients: Specifies the maximum number of listeners that may simultaneously tune in to this stream.
@@ -127,7 +128,10 @@ class CentovacastApi
      *     - diskquota: Specifies the maximum disk space for this stream, in megabytes (MB).
      *     - title: Specifies the title for the stream.
      *     - genre: Specifies the genre of the stream.
+     *     - autostart: Specifies whether or not the stream should automatically be started after provisioning.
      *     - servertype: Specifies the streaming server type for the stream.
+     *     - apptypes: Specifies the supporting application types for autoDJ support.
+     *     - usesource: Specifies whether or not the stream uses autoDJ capabilities.
      * @return stdClass An object containing the request response
      */
     public function editAccount($username, $params)
