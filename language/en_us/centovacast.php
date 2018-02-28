@@ -12,6 +12,7 @@ $lang['Centovacast.tab_actions'] = 'Actions';
 $lang['Centovacast.tab_client_stats'] = 'Statistics';
 $lang['Centovacast.tab_client_actions'] = 'Actions';
 
+
 // Module management
 $lang['Centovacast.add_module_row'] = 'Add Server';
 $lang['Centovacast.add_module_group'] = 'Add Server Group';
@@ -61,6 +62,8 @@ $lang['Centovacast.row_meta.account_limit'] = 'Account Limit';
 
 // Package fields
 $lang['Centovacast.package_fields.servertype'] = 'Server Type';
+$lang['Centovacast.package_fields.apptypes'] = 'AutoDJ Type';
+$lang['Centovacast.package_fields.usesource'] = 'AutoDJ Capabilities';
 $lang['Centovacast.package_fields.maxclients'] = 'Maximum Clients';
 $lang['Centovacast.package_fields.maxbitrate'] = 'Maximum Bitrate';
 $lang['Centovacast.package_fields.transferlimit'] = 'Transfer Limit';
@@ -182,6 +185,8 @@ $lang['Centovacast.!error.password_valid_connection'] = 'A connection to the ser
 $lang['Centovacast.!error.account_limit_valid'] = 'Account Limit must be left blank (for unlimited accounts) or set to some integer value.';
 $lang['Centovacast.!error.port_valid'] = 'The Port must be an numeric value.';
 $lang['Centovacast.!error.meta[servertype].valid'] = 'The Server Type appears to be invalid.';
+$lang['Centovacast.!error.meta[apptypes].valid'] = 'The Auto DJ Type appears to be invalid.';
+$lang['Centovacast.!error.meta[usesource].valid'] = 'The Auto DJ Capabilities appears to be invalid.';
 $lang['Centovacast.!error.meta[maxclients].valid'] = 'The Maximum Clients must be a numeric value.';
 $lang['Centovacast.!error.meta[maxbitrate].valid'] = 'The Maximum Bitrate must be a numeric value.';
 $lang['Centovacast.!error.meta[transferlimit].valid'] = 'The Transfer Limit must be a numeric value.';
