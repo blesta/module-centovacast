@@ -1079,6 +1079,10 @@ class Centovacast extends Module
             return;
         }
 
+        // Force domain to lower case
+        $vars['centovacast_hostname'] = strtolower($vars['centovacast_hostname']);
+
+
         // Remove password if not being updated
         if (isset($vars['centovacast_adminpassword']) && $vars['centovacast_adminpassword'] == '') {
             unset($vars['centovacast_adminpassword']);
