@@ -13,7 +13,7 @@ class Centovacast extends Module
     /**
      * @var string The version of this module
      */
-    private static $version = '1.1.1';
+    private static $version = '1.2.0';
     /**
      * @var string The authors of this module
      */
@@ -1079,6 +1079,10 @@ class Centovacast extends Module
             return;
         }
 
+        // Force domain to lower case
+        $vars['centovacast_hostname'] = strtolower($vars['centovacast_hostname']);
+
+
         // Remove password if not being updated
         if (isset($vars['centovacast_adminpassword']) && $vars['centovacast_adminpassword'] == '') {
             unset($vars['centovacast_adminpassword']);
@@ -1653,7 +1657,7 @@ class Centovacast extends Module
 
         return $this->Input->matches(
             $host_name,
-            '/^([a-z0-9]|[a-z0-9][a-z0-9\-]{0,61}[a-z0-9])(\.([a-z0-9]|[a-z0-9][a-z0-9\-]{0,61}[a-z0-9]))+$/'
+            '/^([a-z0-9]|[a-z0-9][a-z0-9\-]{0,61}[a-z0-9])(\.([a-z0-9]|[a-z0-9][a-z0-9\-]{0,61}[a-z0-9]))+$/i'
         );
     }
 
@@ -1804,7 +1808,7 @@ class Centovacast extends Module
         $row = $this->getModuleRow();
 
         $fields = [
-            'hostname' => !empty($vars['centovacast_hostname']) ? $vars['centovacast_hostname'] : null,
+            'hostname' => !empty($vars['centovacast_hostname']) ? strtolower($vars['centovacast_hostname']) : null,
             'username' => $this->generateUsername($vars['centovacast_hostname']),
             'adminpassword' => $this->generatePassword(),
             'sourcepassword' => $this->generatePassword(),
@@ -1815,7 +1819,9 @@ class Centovacast extends Module
                 : $row->meta->ipaddress,
             'port' => !empty($vars['centovacast_port']) ? $vars['centovacast_port'] : 'auto',
             'email' => !empty($vars['centovacast_email']) ? $vars['centovacast_email'] : null,
-            'url' => !empty($vars['centovacast_hostname']) ? 'http://' . $vars['centovacast_hostname'] : null,
+            'url' => !empty($vars['centovacast_hostname'])
+                ? 'http://' . strtolower($vars['centovacast_hostname'])
+                : null,
             'autostart' => 1
         ];
 
