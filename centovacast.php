@@ -13,7 +13,7 @@ class Centovacast extends Module
     /**
      * @var string The version of this module
      */
-    private static $version = '1.2.0';
+    private static $version = '1.1.2';
     /**
      * @var string The authors of this module
      */
