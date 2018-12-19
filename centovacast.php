@@ -13,7 +13,7 @@ class Centovacast extends Module
     /**
      * @var string The version of this module
      */
-    private static $version = '1.1.1';
+    private static $version = '1.1.2';
     /**
      * @var string The authors of this module
      */
@@ -1719,7 +1719,7 @@ class Centovacast extends Module
         try {
             $api = $this->getApi($hostname, $username, $password, $port, $use_ssl);
 
-            return isset($api->listAccounts()->response);
+            return $this->parseResponse($api->listAccounts());
         } catch (Exception $e) {
             // Trap any errors encountered, could not validate connection
         }
@@ -1853,8 +1853,10 @@ class Centovacast extends Module
             $success = false;
         }
 
-        // Log the response
-        $this->log($row->meta->hostname, serialize($response), 'output', $success);
+        if ($row) {
+            // Log the response
+            $this->log($row->meta->hostname, serialize($response), 'output', $success);
+        }
 
         // Return if any errors encountered
         if (!$success) {
