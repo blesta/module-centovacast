@@ -13,7 +13,7 @@ class Centovacast extends Module
     /**
      * @var string The version of this module
      */
-    private static $version = '1.3.0';
+    private static $version = '1.4.0';
     /**
      * @var string The authors of this module
      */
@@ -699,19 +699,8 @@ class Centovacast extends Module
         Loader::loadHelpers($this, ['Html']);
 
         $fields = new ModuleFields();
-
-        // Create hostname label
-        $hostname = $fields->label(Language::_('Centovacast.service_field.hostname', true), 'centovacast_hostname');
-        // Create hostname field and attach to hostname label
-        $hostname->attach(
-            $fields->fieldText(
-                'centovacast_hostname',
-                $this->Html->ifSet($vars->centovacast_hostname, $this->Html->ifSet($vars->hostname)),
-                ['id' => 'centovacast_hostname']
-            )
-        );
-        // Set the label as a field
-        $fields->setField($hostname);
+		
+		//v1.3.0 hostname code replaced with auto hostname (refer to: public function addService)
 
         // Create title label
         $title = $fields->label(Language::_('Centovacast.service_field.title', true), 'centovacast_title');
@@ -720,7 +709,7 @@ class Centovacast extends Module
             $fields->fieldText(
                 'centovacast_title',
                 $this->Html->ifSet($vars->centovacast_title, $this->Html->ifSet($vars->title)),
-                ['id' => 'centovacast_title']
+                ['id' => 'centovacast_title', 'value' => 'New Radio Station']
             )
         );
         // Set the label as a field
@@ -733,7 +722,7 @@ class Centovacast extends Module
             $fields->fieldText(
                 'centovacast_genre',
                 $this->Html->ifSet($vars->centovacast_genre, $this->Html->ifSet($vars->genre)),
-                ['id' => 'centovacast_genre']
+                ['id' => 'centovacast_genre', 'value' => 'POP Music']
             )
         );
         // Set the label as a field
@@ -880,14 +869,8 @@ class Centovacast extends Module
      */
     private function getServiceRules(array $vars = null, $edit = false)
     {
-        $rules = [
-            'centovacast_hostname' => [
-                'format' => [
-                    'rule' => [[$this, 'validateHostName']],
-                    'message' => Language::_('Centovacast.!error.centovacast_hostname.format', true)
-                ]
-            ]
-        ];
+		
+		//v1.3.0 hostname code replaced with auto hostname (refer to: public function addService)
 
         if ($edit) {
             // If this is an edit and password given then evaluate password
@@ -983,6 +966,25 @@ class Centovacast extends Module
                 // Select random hosting server
                 $servers = $this->parseResponse($api->listServers());
                 $params['rpchostid'] = $servers[array_rand($servers)]->id;
+				
+				//Configurable Options - (ie: transferlimit, diskquota)
+				//Usage: Blesta -> Packages -> Configurable Options -> Create Options
+				//Set Name (not label) to either the following: centovacast_diskquota [OR] centovacast_transferlimit
+				//Configurable Options disk quota and transfer limit value must be in MB format: 5120
+				
+				foreach($vars as $varKey => $varData) {
+					if($varKey == 'configoptions') {
+						foreach($varData as $configKey => $configData) {
+							$params[str_replace('centovacast_', '', $configKey)] = $configData;
+						}
+					}
+				}
+				
+				//Force CentovaCast to provide auto Hostname, Port, IP based on the server it gets provisioned at
+                $params['hostname'] = 'auto'; //override hostname make it always auto by default
+                $params['port'] = 'auto'; //override port make it always auto by default
+                $params['ipaddress'] = 'auto'; //override ipaddress make it always auto by default
+				
 
                 $result = $this->parseResponse($api->createAccount($params));
             } catch (Exception $e) {
@@ -1106,6 +1108,15 @@ class Centovacast extends Module
                     $delta[$key] = $value;
                 }
             }
+			
+			// Check for fields that changed for configoptions (Configurable Options)
+            $delta2 = [];
+            foreach ($vars['configoptions'] as $key => $value) {
+                if (!array_key_exists($key, $service_fields) || $vars['configoptions'][$key] != $service_fields->$key) {
+                    $delta2[$key] = $value;
+                }
+            }
+			
 
             // Get a list of altered fields
             $params = [];
@@ -1739,23 +1750,6 @@ class Centovacast extends Module
      */
     private function generateUsername($host_name)
     {
-        // Remove everything except letters and numbers from the domain
-        // ensure no number appears in the beginning
-        $username = ltrim(preg_replace('/[^a-z0-9]/i', '', $host_name), '0123456789');
-
-        $length = strlen($username);
-        $pool = 'abcdefghijklmnopqrstuvwxyz0123456789';
-        $pool_size = strlen($pool);
-
-        if ($length < 5) {
-            for ($i = $length; $i < 8; $i++) {
-                $username .= substr($pool, mt_rand(0, $pool_size - 1), 1);
-            }
-            $length = strlen($username);
-        }
-
-        $username = substr($username, 0, min($length, 8));
-
         // Check for existing user accounts
         $row = $this->getModuleRow();
         $api = $this->getApi(
@@ -1765,12 +1759,22 @@ class Centovacast extends Module
             $row->meta->port,
             $row->meta->use_ssl
         );
-
         $accounts_usernames = $api->listUsernames();
-
-        if (in_array($username, $accounts_usernames)) {
-            $username = substr($username . md5(rand(0, 100)), 0, min($length, 8));
-        }
+		
+		$username = '';
+		
+		
+		$random_username = rand(1000,9999999);
+		
+		//Optionally use letters instead of numbers for username (Not recommended as more confusing for customers)
+		//$random_length = rand(4,10);
+		//$random_username = substr(str_shuffle("abcdefghijklmnopqrstuvwxyz0123456789"), 0, $random_length);
+		
+		$prefix_username = 'radio';
+		$suffix_username = 'c';
+		while(in_array($username, $accounts_usernames) || $username == '') {
+			$username = $prefix_username.$random_username.$suffix_username;
+		}
 
         return $username;
     }
@@ -1792,7 +1796,10 @@ class Centovacast extends Module
         for ($i = 0; $i < $length; $i++) {
             $password .= substr($pool, mt_rand(0, $pool_size - 1), 1);
         }
-
+		
+		//Make password easier to read
+		$password = strtoupper($password);
+		
         return $password;
     }
 
@@ -1826,13 +1833,37 @@ class Centovacast extends Module
         ];
 
         $fields = array_merge((array) $package->meta, $fields);
-
-        if ($fields['diskquota'] == 0) {
-            $fields['diskquota'] = 'unlimited';
-        }
-        if ($fields['transferlimit'] == 0) {
-            $fields['transferlimit'] = 'unlimited';
-        }
+		
+		//configoptions (Configurable Options)
+		$fieldsConfigOptions = array_merge((array) $package->meta, $fields['configoptions']);
+		
+		
+		//If centovacast_diskquota configoptions is specified
+		if (isset($fieldsConfigOptions['diskquota'])) {
+			if ($fieldsConfigOptions['diskquota'] == 0) {
+				$fields['diskquota'] = 'unlimited';
+			}
+			else {
+				$fields['diskquota'] = $fieldsConfigOptions['diskquota'];
+			}
+		}
+		elseif ($fields['diskquota'] == 0) {
+			$fields['diskquota'] = 'unlimited';
+		}
+		
+		
+		//If centovacast_transferlimit configoptions is specified
+		if (isset($fieldsConfigOptions['transferlimit'])) {
+			if ($fieldsConfigOptions['transferlimit'] == 0) {
+				$fields['transferlimit'] = 'unlimited';
+			}
+			else {
+				$fields['transferlimit'] = $fieldsConfigOptions['transferlimit'];
+			}
+		}
+		elseif ($fields['transferlimit'] == 0) {
+			$fields['transferlimit'] = 'unlimited';
+		}
 
         return $fields;
     }
