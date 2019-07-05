@@ -1763,16 +1763,14 @@ class Centovacast extends Module
 		
 		$username = '';
 		
-		
-		$random_username = rand(1000,9999999);
-		
-		//Optionally use letters instead of numbers for username (Not recommended as more confusing for customers)
-		//$random_length = rand(4,10);
-		//$random_username = substr(str_shuffle("abcdefghijklmnopqrstuvwxyz0123456789"), 0, $random_length);
-		
 		$prefix_username = 'radio';
 		$suffix_username = 'c';
 		while(in_array($username, $accounts_usernames) || $username == '') {
+			$random_username = rand(1000,9999999);
+			
+			//Optionally use letters instead of numbers for username (Not recommended as more confusing for customers)
+			//$random_length = rand(4,10);
+			//$random_username = substr(str_shuffle("abcdefghijklmnopqrstuvwxyz0123456789"), 0, $random_length);
 			$username = $prefix_username.$random_username.$suffix_username;
 		}
 
