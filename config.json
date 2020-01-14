@@ -1,0 +1,22 @@
+{
+    "version": "1.5.0",
+    "name": "Centovacast.name",
+    "description": "Centovacast.description",
+    "authors": [
+        {
+            "name": "Phillips Data, Inc.",
+            "url": "http://www.blesta.com"
+        }
+    ],
+    "service": {
+        "name_key": "centovacast_hostname"
+    },
+    "module": {
+        "row": "Centovacast.module_row",
+        "rows": "Centovacast.module_row_plural",
+        "row_key": "server_name"
+    },
+    "package": {
+        "name_key": ""
+    }
+}

@@ -4,6 +4,7 @@
  */
 // Basics
 $lang['Centovacast.name'] = 'CentovaCast';
+$lang['Centovacast.description'] = 'Manage a single station with ease, or automate a stream hosting business with thousands of clients. Centova Cast can handle virtually any stream hosting scenario!';
 $lang['Centovacast.module_row'] = 'Server';
 $lang['Centovacast.module_row_plural'] = 'Servers';
 $lang['Centovacast.module_group'] = 'Server Group';
