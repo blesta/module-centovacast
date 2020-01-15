@@ -8,6 +8,9 @@
             "url": "http://www.blesta.com"
         }
     ],
+    "package": {
+        "name_key": "centovacast_hostname"
+    },
     "service": {
         "name_key": "centovacast_hostname"
     },
@@ -17,7 +20,15 @@
         "row_key": "server_name",
         "group": "Centovacast.module_group"
     },
-    "package": {
-        "name_key": "centovacast_hostname"
+    "email_tags": {
+        "module": ["hostname", "server_name"],
+        "package": ["servertype", "apptypes", "usesource", "maxclients", "maxbitrate", "transferlimit", "diskquota"],
+        "service": [
+            "centovacast_hostname",
+            "centovacast_username",
+            "centovacast_adminpassword",
+            "centovacast_title",
+            "centovacast_genre"
+        ]
     }
 }
