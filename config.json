@@ -14,7 +14,8 @@
     "module": {
         "row": "Centovacast.module_row",
         "rows": "Centovacast.module_row_plural",
-        "row_key": "server_name"
+        "row_key": "server_name",
+        "group": "Centovacast.module_group"
     },
     "package": {
         "name_key": ""
