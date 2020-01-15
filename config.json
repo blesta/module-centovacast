@@ -18,6 +18,6 @@
         "group": "Centovacast.module_group"
     },
     "package": {
-        "name_key": ""
+        "name_key": "centovacast_hostname"
     }
 }

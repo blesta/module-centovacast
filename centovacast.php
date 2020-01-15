@@ -529,42 +529,6 @@ class Centovacast extends Module
     }
 
     /**
-     * Returns the value used to identify a particular service.
-     *
-     * @param stdClass $service A stdClass object representing the service
-     * @return string A value used to identify this service amongst other similar services
-     */
-    public function getServiceName($service)
-    {
-        foreach ($service->fields as $field) {
-            if ($field->key == 'centovacast_hostname') {
-                return $field->value;
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * Returns the value used to identify a particular package service which has
-     * not yet been made into a service. This may be used to uniquely identify
-     * an uncreated services of the same package (i.e. in an order form checkout).
-     *
-     * @param stdClass $package A stdClass object representing the selected package
-     * @param array $vars An array of user supplied info to satisfy the request
-     * @return string The value used to identify this package service
-     * @see Module::getServiceName()
-     */
-    public function getPackageServiceName($package, array $vars = null)
-    {
-        if (isset($vars['centovacast_hostname'])) {
-            return $vars['centovacast_hostname'];
-        }
-
-        return null;
-    }
-
-    /**
      * Returns all fields to display to an admin attempting to add a service with the module.
      *
      * @param stdClass $package A stdClass object representing the selected package
