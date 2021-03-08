@@ -516,7 +516,7 @@ class Centovacast extends Module
         $ipaddress->attach(
             $fields->fieldText(
                 'centovacast_ipaddress',
-                $this->Html->ifSet($vars->centovacast_ipaddress, $this->Html->ifSet($vars->ipaddress)),
+                (isset($vars->centovacast_ipaddress) ? $vars->centovacast_ipaddress : ($vars->ipaddress ?? null)),
                 ['id' => 'centovacast_ipaddress']
             )
         );
@@ -532,7 +532,7 @@ class Centovacast extends Module
         $port->attach(
             $fields->fieldText(
                 'centovacast_port',
-                $this->Html->ifSet($vars->centovacast_port, $this->Html->ifSet($vars->port)),
+                (isset($vars->centovacast_port) ? $vars->centovacast_port : ($vars->port ?? null)),
                 ['id' => 'centovacast_port']
             )
         );
@@ -565,7 +565,7 @@ class Centovacast extends Module
         $hostname->attach(
             $fields->fieldText(
                 'centovacast_hostname',
-                $this->Html->ifSet($vars->centovacast_hostname, $this->Html->ifSet($vars->hostname)),
+                (isset($vars->centovacast_hostname) ? $vars->centovacast_hostname : ($vars->hostname ?? null)),
                 ['id' => 'centovacast_hostname']
             )
         );
@@ -578,7 +578,7 @@ class Centovacast extends Module
         $title->attach(
             $fields->fieldText(
                 'centovacast_title',
-                $this->Html->ifSet($vars->centovacast_title, $this->Html->ifSet($vars->title)),
+                (isset($vars->centovacast_title) ? $vars->centovacast_title : ($vars->title ?? null)),
                 ['id' => 'centovacast_title']
             )
         );
@@ -591,7 +591,7 @@ class Centovacast extends Module
         $genre->attach(
             $fields->fieldText(
                 'centovacast_genre',
-                $this->Html->ifSet($vars->centovacast_genre, $this->Html->ifSet($vars->genre)),
+                (isset($vars->centovacast_genre) ? $vars->centovacast_genre : ($vars->genre ?? null)),
                 ['id' => 'centovacast_genre']
             )
         );
