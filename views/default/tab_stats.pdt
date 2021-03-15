@@ -19,7 +19,7 @@
                         ?>
                     <tr<?php echo $this->Html->concat(' ', ($i % 2 == 1) ? ' class="odd_row"' : '', '');?>>
                         <td><?php $this->_('Centovacast.tab_stats.info.' . $key);?></td>
-                        <td><?php $this->Html->_($value);?></td>
+                        <td><?php echo (isset($value) ? $this->Html->safe($value) : null);?></td>
                     </tr>
                     <?php
                     }
@@ -46,13 +46,13 @@
                 <tr>
                     <td>
                         <?php
-                        $usage = $this->Html->ifSet($account_info->cachedtransfer, 0);
+                        $usage = (isset($account_info->cachedtransfer) ? $account_info->cachedtransfer : 0);
                         $this->_('Centovacast.tab_stats.bandwidth_value', false, round($usage, 2));
                         ?>
                     </td>
                     <td>
                         <?php
-                        $limit = $this->Html->ifSet($account_info->transferlimit, 0);
+                        $limit = (isset($account_info->transferlimit) ? $account_info->transferlimit : 0);
                         $this->_(($account_info->transferlimit == 'unlimited' || $limit == 0 ? 'Centovacast.tab_stats.bandwidth_unlimited' : 'Centovacast.tab_stats.bandwidth_value'), false, round($limit, 2));
                         ?>
                     </td>
@@ -76,13 +76,13 @@
                 <tr>
                     <td>
                         <?php
-                        $usage = $this->Html->ifSet($account_info->cacheddiskusage, 0);
+                        $usage = (isset($account_info->cacheddiskusage) ? $account_info->cacheddiskusage : 0);
                         $this->_('Centovacast.tab_stats.disk_value', false, round($usage, 2));
                         ?>
                     </td>
                     <td>
                         <?php
-                        $limit = $this->Html->ifSet($account_info->diskquota, 0);
+                        $limit = (isset($account_info->diskquota) ? $account_info->diskquota : 0);
                         $this->_(($account_info->diskquota == 'unlimited' || $limit == 0 ? 'Centovacast.tab_stats.disk_unlimited' : 'Centovacast.tab_stats.disk_value'), false, round($limit, 2));
                         ?>
                     </td>
