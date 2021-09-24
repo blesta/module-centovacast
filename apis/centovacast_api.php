@@ -1,4 +1,6 @@
 <?php
+use Blesta\Core\Util\Common\Traits\Container;
+
 /**
  * Centovacast API.
  *
@@ -10,6 +12,9 @@
  */
 class CentovacastApi
 {
+    // Load traits
+    use Container;
+
     /**
      * @var string The format of the response of the request, can be json or xml
      */
@@ -50,6 +55,10 @@ class CentovacastApi
         $this->password = $password;
         $this->port = $port;
         $this->use_ssl = $use_ssl;
+
+        // Initialize logger
+        $logger = $this->getFromContainer('logger');
+        $this->logger = $logger;
     }
 
     /**
@@ -75,12 +84,26 @@ class CentovacastApi
         curl_setopt($ch, CURLOPT_TIMEOUT, 20);
         curl_setopt($ch, CURLOPT_FRESH_CONNECT, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-        $data = json_decode(curl_exec($ch));
+
+        if (Configure::get('Blesta.curl_verify_ssl')) {
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, true);
+        } else {
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        }
+
+        $result = curl_exec($ch);
+
+        if ($result == false) {
+            $this->logger->error(curl_error($ch));
+        } else {
+            $data = json_decode($result);
+        }
+
         curl_close($ch);
 
-        return $data;
+        return $data ?? null;
     }
 
     /**
