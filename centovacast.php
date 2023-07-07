@@ -1576,8 +1576,27 @@ class Centovacast extends Module
         try {
             $api = $this->getApi($hostname, $username, $password, $port, $use_ssl);
 
-            return $this->parseResponse($api->listAccounts());
+            $response = $api->sanityCheck();
+            
+            $row = $this->getModuleRow();
+            $success = true;
+
+            // Set internal error
+            if (empty($response)) {
+                $this->Input->setErrors(['api' => ['internal' => Language::_('Centovacast.!error.api.internal', true)]]);
+                $success = false;
+            }
+            
+            if (($response->type ?? '') == 'error') {
+                $this->Input->setErrors(['api' => ['error' => $response->response->message]]);
+                $success = false;
+            }
+
+            $this->log($hostname, json_encode($response), 'output', $success);
+
+            return $success;
         } catch (Exception $e) {
+            var_dump($e->getMessage());
             // Trap any errors encountered, could not validate connection
         }
 
