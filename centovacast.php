@@ -1596,7 +1596,6 @@ class Centovacast extends Module
 
             return $success;
         } catch (Exception $e) {
-            var_dump($e->getMessage());
             // Trap any errors encountered, could not validate connection
         }
 
