@@ -215,6 +215,16 @@ class CentovacastApi
     {
         return $this->apiRequest('system.listaccounts');
     }
+    
+    /**
+     * Performs a sanity check on the API connection.
+     *
+     * @return stdClass An object
+     */
+    public function sanityCheck()
+    {
+        return $this->apiRequest('system.sanitycheck');
+    }
 
     /**
      * Starts the streaming server.
