@@ -31,9 +31,7 @@
     </table>
 </div>
 
-<div class="title_row">
-    <h6 class="form-section-header mt-4"><?php $this->_('Centovacast.tab_stats.bandwidth_title');?></h6>
-</div>
+<h6 class="form-section-header mt-4"><?php $this->_('Centovacast.tab_stats.bandwidth_title');?></h6>
 <div class="pad">
     <table class="table">
         <thead>
@@ -63,9 +61,7 @@
     </table>
 </div>
 
-<div class="title_row">
-    <h6 class="form-section-header mt-4"><?php $this->_('Centovacast.tab_stats.disk_title');?></h6>
-</div>
+<h6 class="form-section-header mt-4"><?php $this->_('Centovacast.tab_stats.disk_title');?></h6>
 <div class="pad">
     <table class="table">
         <thead>
