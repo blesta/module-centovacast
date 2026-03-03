@@ -13,6 +13,7 @@ $lang['Centovacast.tab_actions'] = 'Actions';
 $lang['Centovacast.tab_client_stats'] = 'Statistics';
 $lang['Centovacast.tab_client_actions'] = 'Actions';
 
+$lang['Centovacast.back_to_manage'] = 'Back';
 
 // Module management
 $lang['Centovacast.add_module_row'] = 'Add Server';
