@@ -1,64 +1,64 @@
-<?php /** @var View $this **/ ?>
+<?php
+/** @var View $this **/
+?>
 
-<h6 class="form-section-header first"><?php $this->_('Centovacast.tab_actions.status_title');?></h6>
+<h6 class="form-section-header first"><?php $this->_('Centovacast.tab_actions.status_title'); ?></h6>
 <div class="pad">
-    <?php
+    <?php if ((bool) $stream_info->serverstate) {
+        $status_class = 'success';
+        $status = 'online';
+    } else {
+        $status_class = 'danger';
+        $status = 'offline';
+    } ?>
 
-        if ((bool) $stream_info->serverstate) {
-            $status_class = 'success';
-            $status = 'online';
-        } else {
-            $status_class = 'danger';
-            $status = 'offline';
-        }
-        ?>
-
-    <span class="btn btn-sm btn-<?php echo (isset($status_class) ? $this->Html->safe($status_class) : null);?>" style="padding: 2px 4px;" disabled="disabled">
-        <i class="bi bi-lightbulb"></i> <?php $this->_('Centovacast.tab_client_actions.status_' . (isset($status) ? $this->Html->safe($status) : null));?>
+    <span class="btn btn-sm btn-<?php echo isset($status_class)
+        ? $this->Html->safe($status_class)
+        : null; ?>" style="padding: 2px 4px;" disabled="disabled">
+        <i class="bi bi-lightbulb"></i> <?php $this->_(
+            'Centovacast.tab_client_actions.status_' . (isset($status) ? $this->Html->safe($status) : null),
+        ); ?>
     </span>
 </div>
 
-<h6 class="form-section-header mt-4"><?php $this->_('Centovacast.tab_actions.server_title');?></h6>
+<h6 class="form-section-header mt-4"><?php $this->_('Centovacast.tab_actions.server_title'); ?></h6>
 <div class="pad">
     <div class="row">
         <div class="col-md-4">
             <?php
-
-                $this->Form->create();
-                $this->Form->fieldHidden('action', 'restart');
-                ?>
-            <button<?php echo (isset($status) ? $status : null) != 'online' ? ' disabled="disabled"' : '';?> class="btn w-100 btn-success">
-                <i class="bi bi-arrow-clockwise"></i> <?php $this->_('Centovacast.tab_actions.action_restart');?>
+            $this->Form->create();
+            $this->Form->fieldHidden('action', 'restart');
+            ?>
+            <button<?php echo (isset($status) ? $status : null) != 'online'
+                ? ' disabled="disabled"'
+                : ''; ?> class="btn w-100 btn-success">
+                <i class="bi bi-arrow-clockwise"></i> <?php $this->_('Centovacast.tab_actions.action_restart'); ?>
                 </button>
-            <?php
-                $this->Form->end();
-                ?>
+            <?php $this->Form->end(); ?>
         </div>
         <div class="col-md-4">
             <?php
-
-                $this->Form->create();
-                $this->Form->fieldHidden('action', 'stop');
-                ?>
-            <button<?php echo (isset($status) ? $status : null) != 'online' ? ' disabled="disabled"' : '';?> class="btn w-100 btn-danger">
-                <i class="bi bi-stop-fill"></i> <?php $this->_('Centovacast.tab_actions.action_stop');?>
+            $this->Form->create();
+            $this->Form->fieldHidden('action', 'stop');
+            ?>
+            <button<?php echo (isset($status) ? $status : null) != 'online'
+                ? ' disabled="disabled"'
+                : ''; ?> class="btn w-100 btn-danger">
+                <i class="bi bi-stop-fill"></i> <?php $this->_('Centovacast.tab_actions.action_stop'); ?>
                 </button>
-            <?php
-                $this->Form->end();
-                ?>
+            <?php $this->Form->end(); ?>
         </div>
         <div class="col-md-4">
             <?php
-
-                $this->Form->create();
-                $this->Form->fieldHidden('action', 'start');
-                ?>
-            <button<?php echo (isset($status) ? $status : null) != 'offline' ? ' disabled="disabled"' : '';?> class="btn btn-outline-secondary w-100">
-                <i class="bi bi-play-fill"></i> <?php $this->_('Centovacast.tab_actions.action_start');?>
+            $this->Form->create();
+            $this->Form->fieldHidden('action', 'start');
+            ?>
+            <button<?php echo (isset($status) ? $status : null) != 'offline'
+                ? ' disabled="disabled"'
+                : ''; ?> class="btn btn-outline-secondary w-100">
+                <i class="bi bi-play-fill"></i> <?php $this->_('Centovacast.tab_actions.action_start'); ?>
                 </button>
-            <?php
-                $this->Form->end();
-                ?>
+            <?php $this->Form->end(); ?>
         </div>
     </div>
 </div>
