@@ -1,6 +1,4 @@
-<?php
-/** @var View $this **/
-?>
+<?php /** @var View $this **/ ?>
 
 <h6 class="form-section-header first"><?php $this->_('Centovacast.tab_stats.info_title'); ?></h6>
 <div class="pad">
