@@ -1,7 +1,7 @@
 <?php /** @var View $this **/ ?>
 
-<h6 class="form-section-header first"><?php $this->_('Centovacast.tab_stats.info_title'); ?></h6>
-<div class="pad">
+<h6 class="form-section-header"><?php $this->_('Centovacast.tab_stats.info_title'); ?></h6>
+<div class="mb-3">
     <table class="table">
         <thead>
             <tr>
@@ -39,7 +39,7 @@
 </div>
 
 <h6 class="form-section-header mt-4"><?php $this->_('Centovacast.tab_stats.bandwidth_title'); ?></h6>
-<div class="pad">
+<div class="mb-3">
     <table class="table">
         <thead>
             <tr>
@@ -73,7 +73,7 @@
 </div>
 
 <h6 class="form-section-header mt-4"><?php $this->_('Centovacast.tab_stats.disk_title'); ?></h6>
-<div class="pad">
+<div class="mb-3">
     <table class="table">
         <thead>
             <tr>

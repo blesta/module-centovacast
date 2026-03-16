@@ -1,7 +1,7 @@
 <?php /** @var View $this **/ ?>
 
-<h6 class="form-section-header first"><?php $this->_('Centovacast.tab_actions.status_title'); ?></h6>
-<div class="pad">
+<h6 class="form-section-header"><?php $this->_('Centovacast.tab_actions.status_title'); ?></h6>
+<div class="mb-3">
     <?php if ((bool) $stream_info->serverstate) {
         $status_class = 'success';
         $status = 'online';
@@ -20,7 +20,7 @@
 </div>
 
 <h6 class="form-section-header mt-4"><?php $this->_('Centovacast.tab_actions.server_title'); ?></h6>
-<div class="pad">
+<div class="mb-3">
     <div class="row">
         <div class="col-md-4">
             <?php
