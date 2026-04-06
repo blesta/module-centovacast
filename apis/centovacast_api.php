@@ -47,6 +47,11 @@ class CentovacastApi
     private $password;
 
     /**
+     * @var mixed The logger instance
+     */
+    private $logger;
+
+    /**
      * Initializes the class.
      */
     public function __construct($hostname, $username, $password, $port = 2199, $use_ssl = false)

@@ -1298,13 +1298,16 @@ class Centovacast extends Module
         if (!empty($post)) {
             switch ($post['action']) {
                 case 'restart':
-                    $api->restartStream($service_fields->centovacast_username);
+                    $this->log($row->meta->hostname . '|restartstream', serialize($service_fields->centovacast_username), 'input', true);
+                    $this->parseResponse($api->restartStream($service_fields->centovacast_username));
                     break;
                 case 'stop':
-                    $api->stopStream($service_fields->centovacast_username);
+                    $this->log($row->meta->hostname . '|stopstream', serialize($service_fields->centovacast_username), 'input', true);
+                    $this->parseResponse($api->stopStream($service_fields->centovacast_username));
                     break;
                 case 'start':
-                    $api->startStream($service_fields->centovacast_username);
+                    $this->log($row->meta->hostname . '|startstream', serialize($service_fields->centovacast_username), 'input', true);
+                    $this->parseResponse($api->startStream($service_fields->centovacast_username));
                     break;
                 default:
                     break;
@@ -1594,6 +1597,8 @@ class Centovacast extends Module
         try {
             $api = $this->getApi($hostname, $username, $password, $port, $use_ssl);
 
+            $this->log($hostname, json_encode(compact('hostname', 'username', 'port', 'use_ssl')), 'input', true);
+
             $response = $api->sanityCheck();
 
             $row = $this->getModuleRow();
@@ -1614,7 +1619,7 @@ class Centovacast extends Module
 
             return $success;
         } catch (\Throwable $e) {
-            // Trap any errors encountered, could not validate connection
+            $this->log($hostname, $e->getMessage(), 'output', false);
         }
 
         return false;
