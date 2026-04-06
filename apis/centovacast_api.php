@@ -1,4 +1,5 @@
 <?php
+
 use Blesta\Core\Util\Common\Traits\Container;
 
 /**
@@ -44,6 +45,11 @@ class CentovacastApi
      * @var string The Centovacast password
      */
     private $password;
+
+    /**
+     * @var mixed The logger instance
+     */
+    private $logger;
 
     /**
      * Initializes the class.
@@ -215,7 +221,7 @@ class CentovacastApi
     {
         return $this->apiRequest('system.listaccounts');
     }
-    
+
     /**
      * Performs a sanity check on the API connection.
      *
@@ -290,7 +296,7 @@ class CentovacastApi
     {
         try {
             $accounts = $this->apiRequest('system.listaccounts')->response->data;
-        } catch (Exception $e) {
+        } catch (\Throwable $e) {
             // The system don't have any account yet
             return [];
         }
