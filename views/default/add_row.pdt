@@ -13,7 +13,7 @@ $this->Widget->create($this->_('Centovacast.add_row.box_title', true));
 ?>
         <?php
         $this->Form->create(null, ['class' => 'disable-on-submit']);
-        $this->Form->fieldHidden('account_count', isset($vars->account_count) ? $vars->account_count : 0);
+        $this->Form->fieldHidden('account_count', $vars->account_count ?? 0);
         ?>
     <h6 class="form-section-header"><?php $this->_('Centovacast.add_row.basic_title'); ?></h6>
 
@@ -21,7 +21,7 @@ $this->Widget->create($this->_('Centovacast.add_row.box_title', true));
         <label for="server_name" class="form-label">
             <?php $this->_('Centovacast.row_meta.server_name'); ?>
         </label>
-        <?php $this->Form->fieldText('server_name', isset($vars->server_name) ? $vars->server_name : null, [
+        <?php $this->Form->fieldText('server_name', $vars->server_name ?? null, [
             'id' => 'server_name',
             'class' => 'form-control',
         ]); ?>
@@ -31,7 +31,7 @@ $this->Widget->create($this->_('Centovacast.add_row.box_title', true));
         <label for="hostname" class="form-label">
             <?php $this->_('Centovacast.row_meta.hostname'); ?>
         </label>
-        <?php $this->Form->fieldText('hostname', isset($vars->hostname) ? $vars->hostname : null, [
+        <?php $this->Form->fieldText('hostname', $vars->hostname ?? null, [
             'id' => 'hostname',
             'class' => 'form-control',
         ]); ?>
@@ -41,7 +41,7 @@ $this->Widget->create($this->_('Centovacast.add_row.box_title', true));
         <label for="ipaddress" class="form-label">
             <?php $this->_('Centovacast.row_meta.ipaddress'); ?>
         </label>
-        <?php $this->Form->fieldText('ipaddress', isset($vars->ipaddress) ? $vars->ipaddress : null, [
+        <?php $this->Form->fieldText('ipaddress', $vars->ipaddress ?? null, [
             'id' => 'ipaddress',
             'class' => 'form-control',
         ]); ?>
@@ -51,7 +51,7 @@ $this->Widget->create($this->_('Centovacast.add_row.box_title', true));
         <label for="port" class="form-label">
             <?php $this->_('Centovacast.row_meta.port'); ?>
         </label>
-        <?php $this->Form->fieldText('port', isset($vars->port) ? $vars->port : null, [
+        <?php $this->Form->fieldText('port', $vars->port ?? null, [
             'id' => 'port',
             'class' => 'form-control',
         ]); ?>
@@ -61,7 +61,7 @@ $this->Widget->create($this->_('Centovacast.add_row.box_title', true));
         <label for="username" class="form-label">
             <?php $this->_('Centovacast.row_meta.username'); ?>
         </label>
-        <?php $this->Form->fieldText('username', isset($vars->username) ? $vars->username : null, [
+        <?php $this->Form->fieldText('username', $vars->username ?? null, [
             'id' => 'username',
             'class' => 'form-control',
         ]); ?>
@@ -79,7 +79,7 @@ $this->Widget->create($this->_('Centovacast.add_row.box_title', true));
             <?php $this->Form->fieldCheckbox(
                 'use_ssl',
                 'true',
-                (isset($vars->use_ssl) ? $vars->use_ssl : 'true') == 'true',
+                ($vars->use_ssl ?? 'true') == 'true',
                 ['id' => 'use_ssl', 'class' => 'form-check-input'],
             ); ?>
             <label for="use_ssl" class="form-check-label">
@@ -92,7 +92,7 @@ $this->Widget->create($this->_('Centovacast.add_row.box_title', true));
         <label for="account_limit" class="form-label">
             <?php $this->_('Centovacast.row_meta.account_limit'); ?>
         </label>
-        <?php $this->Form->fieldText('account_limit', isset($vars->account_limit) ? $vars->account_limit : null, [
+        <?php $this->Form->fieldText('account_limit', $vars->account_limit ?? null, [
             'id' => 'account_limit',
             'class' => 'form-control',
         ]); ?>
@@ -101,7 +101,7 @@ $this->Widget->create($this->_('Centovacast.add_row.box_title', true));
     <h6 class="form-section-header mt-4"><?php $this->_('Centovacast.add_row.notes_title'); ?></h6>
 
     <div class="mb-3">
-        <?php $this->Form->fieldTextarea('notes', isset($vars->notes) ? $vars->notes : null, [
+        <?php $this->Form->fieldTextarea('notes', $vars->notes ?? null, [
             'id' => 'notes',
             'class' => 'form-control',
         ]); ?>
@@ -116,4 +116,4 @@ $this->Widget->create($this->_('Centovacast.add_row.box_title', true));
 
         <?php $this->Form->end(); ?>
         <?php $this->Widget->end();
-?>
+        ?>

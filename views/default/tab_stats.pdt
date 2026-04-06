@@ -29,7 +29,7 @@
                 <td><?php $this->_('Centovacast.tab_stats.info.' . $key); ?></td>
                 <td><?php echo isset($value) ? $this->Html->safe($value) : null; ?></td>
             </tr>
-                    <?php }
+                <?php }
 
                 $i++;
             }
@@ -51,13 +51,13 @@
             <tr>
                 <td>
                     <?php
-                    $usage = isset($account_info->cachedtransfer) ? $account_info->cachedtransfer : 0;
+                    $usage = $account_info->cachedtransfer ?? 0;
                     $this->_('Centovacast.tab_stats.bandwidth_value', false, round($usage, 2));
                     ?>
                 </td>
                 <td>
                     <?php
-                    $limit = isset($account_info->transferlimit) ? $account_info->transferlimit : 0;
+                    $limit = $account_info->transferlimit ?? 0;
                     $this->_(
                         $account_info->transferlimit == 'unlimited' || $limit == 0
                             ? 'Centovacast.tab_stats.bandwidth_unlimited'
@@ -85,13 +85,13 @@
             <tr>
                 <td>
                     <?php
-                    $usage = isset($account_info->cacheddiskusage) ? $account_info->cacheddiskusage : 0;
+                    $usage = $account_info->cacheddiskusage ?? 0;
                     $this->_('Centovacast.tab_stats.disk_value', false, round($usage, 2));
                     ?>
                 </td>
                 <td>
                     <?php
-                    $limit = isset($account_info->diskquota) ? $account_info->diskquota : 0;
+                    $limit = $account_info->diskquota ?? 0;
                     $this->_(
                         $account_info->diskquota == 'unlimited' || $limit == 0
                             ? 'Centovacast.tab_stats.disk_unlimited'
