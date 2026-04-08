@@ -9,10 +9,10 @@ $this->Widget->setLinkButtons([
         'attributes' => ['href' => $this->base_uri . 'settings/company/modules/manage/' . $module->id],
     ],
 ]);
+$this->Form->create(null, ['class' => 'disable-on-submit']);
 $this->Widget->create($this->_('Centovacast.add_row.box_title', true));
 ?>
         <?php
-        $this->Form->create(null, ['class' => 'disable-on-submit']);
         $this->Form->fieldHidden('account_count', $vars->account_count ?? 0);
         ?>
     <h6 class="form-section-header"><?php $this->_('Centovacast.add_row.basic_title'); ?></h6>
@@ -114,6 +114,6 @@ $this->Widget->create($this->_('Centovacast.add_row.box_title', true));
         ]); ?>
     </div>
 
-        <?php $this->Form->end(); ?>
-        <?php $this->Widget->end();
+        <?php $this->Widget->end(); ?>
+        <?php $this->Form->end();
         ?>
