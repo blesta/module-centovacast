@@ -3,14 +3,14 @@
 <h4><?php $this->_('Centovacast.tab_client_actions.heading_status');?></h4>
 
 <?php
-    if ((bool) $stream_info->serverstate) {
-        $status_class = 'success';
-        $status = 'online';
-    } else {
-        $status_class = 'danger';
-        $status = 'offline';
-    }
-    ?>
+if ((bool) $stream_info->serverstate) {
+    $status_class = 'success';
+    $status = 'online';
+} else {
+    $status_class = 'danger';
+    $status = 'offline';
+}
+?>
 
 <span class="badge badge-<?php echo (isset($status_class) ? $this->Html->safe($status_class) : null);?> mb-3">
     <i class="fas fa-lightbulb"></i> <?php $this->_('Centovacast.tab_client_actions.status_' . (isset($status) ? $this->Html->safe($status) : null));?>
@@ -23,13 +23,13 @@
 
             $this->Form->create();
             $this->Form->fieldHidden('action', 'restart');
-            ?>
-        <button<?php echo (isset($status) ? $status : null) != 'online' ? ' disabled="disabled"' : '';?> class="btn btn-block btn-success">
+        ?>
+        <button<?php echo ($status ?? null) != 'online' ? ' disabled="disabled"' : '';?> class="btn btn-block btn-success">
             <i class="fas fa-sync-alt"></i> <?php $this->_('Centovacast.tab_client_actions.action_restart');?>
             </button>
         <?php
             $this->Form->end();
-            ?>
+        ?>
             <a href="#" class="genre btn btn-light btn-block" style="margin-top: 5px;">
                 <i class="fas fa-music"></i> <?php $this->_('Centovacast.tab_client_actions.action_genre');?>
             </a>
@@ -39,13 +39,13 @@
 
             $this->Form->create();
             $this->Form->fieldHidden('action', 'stop');
-            ?>
-        <button<?php echo (isset($status) ? $status : null) != 'online' ? ' disabled="disabled"' : '';?> class="btn btn-block btn-danger">
+        ?>
+        <button<?php echo ($status ?? null) != 'online' ? ' disabled="disabled"' : '';?> class="btn btn-block btn-danger">
             <i class="fas fa-stop"></i> <?php $this->_('Centovacast.tab_client_actions.action_stop');?>
             </button>
         <?php
             $this->Form->end();
-            ?>
+        ?>
             <a href="#" class="radio_title btn btn-light btn-block" style="margin-top: 5px;">
                 <i class="fas fa-edit"></i> <?php $this->_('Centovacast.tab_client_actions.action_radio_title');?>
             </a>
@@ -55,13 +55,13 @@
 
             $this->Form->create();
             $this->Form->fieldHidden('action', 'start');
-            ?>
-        <button<?php echo (isset($status) ? $status : null) != 'offline' ? ' disabled="disabled"' : '';?> class="btn btn-light btn-block">
+        ?>
+        <button<?php echo ($status ?? null) != 'offline' ? ' disabled="disabled"' : '';?> class="btn btn-light btn-block">
             <i class="fas fa-play"></i> <?php $this->_('Centovacast.tab_client_actions.action_start');?>
             </button>
         <?php
             $this->Form->end();
-            ?>
+        ?>
             <a href="#" class="password btn btn-light btn-block" style="margin-top: 5px;">
                 <i class="fas fa-lock"></i> <?php $this->_('Centovacast.tab_client_actions.action_password');?>
             </a>
@@ -74,16 +74,16 @@
     <h4><?php $this->_('Centovacast.tab_client_actions.heading_genre');?></h4>
 
     <?php
-        $this->Form->create($this->base_uri . 'services/manage/' . (isset($service_id) ? $service_id : null) . '/tabClientActions/');
-        ?>
+        $this->Form->create($this->base_uri . 'services/manage/' . ($service_id ?? null) . '/tabClientActions/');
+    ?>
     <div class="w-100">
         <div class="form-group">
             <?php
 
                 $this->Form->label($this->_('Centovacast.tab_client_actions.field_genre', true), 'genre');
-                $this->Form->fieldText('genre', (isset($vars->genre) ? $vars->genre : $account_info->genre), ['id' => 'genre', 'class' => 'form-control', 'placeholder' => $this->_('Centovacast.tab_client_actions.field_genre', true)]);
+                $this->Form->fieldText('genre', ($vars->genre ?? $account_info->genre), ['id' => 'genre', 'class' => 'form-control', 'placeholder' => $this->_('Centovacast.tab_client_actions.field_genre', true)]);
                 $this->Form->fieldHidden('action', 'genre');
-                ?>
+            ?>
         </div>
     </div>
     <button class="btn btn-light float-right">
@@ -91,7 +91,7 @@
     </button>
     <?php
         $this->Form->end();
-        ?>
+    ?>
 </div>
 
 <div class="clearfix"></div>
@@ -100,16 +100,16 @@
     <h4><?php $this->_('Centovacast.tab_client_actions.heading_radio_title');?></h4>
 
     <?php
-        $this->Form->create($this->base_uri . 'services/manage/' . (isset($service_id) ? $service_id : null) . '/tabClientActions/');
-        ?>
+        $this->Form->create($this->base_uri . 'services/manage/' . ($service_id ?? null) . '/tabClientActions/');
+    ?>
     <div class="w-100">
         <div class="form-group">
             <?php
 
                 $this->Form->label($this->_('Centovacast.tab_client_actions.field_radio_title', true), 'radio_title');
-                $this->Form->fieldText('radio_title', (isset($vars->radio_title) ? $vars->radio_title : $account_info->title), ['id' => 'radio_title', 'class' => 'form-control', 'placeholder' => $this->_('Centovacast.tab_client_actions.field_radio_title', true)]);
+                $this->Form->fieldText('radio_title', ($vars->radio_title ?? $account_info->title), ['id' => 'radio_title', 'class' => 'form-control', 'placeholder' => $this->_('Centovacast.tab_client_actions.field_radio_title', true)]);
                 $this->Form->fieldHidden('action', 'radio_title');
-                ?>
+            ?>
         </div>
     </div>
     <button class="btn btn-light float-right">
@@ -117,7 +117,7 @@
     </button>
     <?php
         $this->Form->end();
-        ?>
+    ?>
 </div>
 
 <div class="clearfix"></div>
@@ -126,8 +126,8 @@
     <h4><?php $this->_('Centovacast.tab_client_actions.heading_password');?></h4>
 
     <?php
-        $this->Form->create($this->base_uri . 'services/manage/' . (isset($service_id) ? $service_id : null) . '/tabClientActions/');
-        ?>
+        $this->Form->create($this->base_uri . 'services/manage/' . ($service_id ?? null) . '/tabClientActions/');
+    ?>
     <div class="w-100">
         <div class="form-group">
             <?php
@@ -135,7 +135,7 @@
                 $this->Form->label($this->_('Centovacast.tab_client_actions.field_password', true), 'password');
                 $this->Form->fieldPassword('password', ['id' => 'password', 'class' => 'form-control']);
                 $this->Form->fieldHidden('action', 'password');
-                ?>
+            ?>
         </div>
     </div>
     <button class="btn btn-light float-right">
@@ -143,7 +143,7 @@
     </button>
     <?php
         $this->Form->end();
-        ?>
+    ?>
 </div>
 
 <script type="text/javascript">

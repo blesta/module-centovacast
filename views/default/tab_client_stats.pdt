@@ -32,13 +32,13 @@
 
 <label><?php $this->_('Centovacast.tab_client_stats.disk_title');?></label>
                     <?php
-    $disk = [
-        'used' => round($account_info->cacheddiskusage ?? 0, 2),
-        'limit' => round($account_info->diskquota ?? 0, 2)
-    ];
-    $unlimited = ($account_info->diskquota == 'unlimited' || $disk['limit'] == 0);
-    $percent_used = ($unlimited ? 0 : round(($disk['used'] / $disk['limit']) * 100, 0));
-    ?>
+                    $disk = [
+                    'used' => round($account_info->cacheddiskusage ?? 0, 2),
+                    'limit' => round($account_info->diskquota ?? 0, 2)
+                    ];
+                    $unlimited = ($account_info->diskquota == 'unlimited' || $disk['limit'] == 0);
+                    $percent_used = ($unlimited ? 0 : round(($disk['used'] / $disk['limit']) * 100, 0));
+                    ?>
 <small>
     <?php echo $unlimited ? $this->_('Centovacast.tab_client_stats.usage_unlimited', true, $this->Html->safe($disk['used'])) : $this->_('Centovacast.tab_client_stats.usage', true, $this->Html->safe($disk['used']), $this->Html->safe($disk['limit']));?>
 </small>
@@ -50,13 +50,13 @@
 
 <label><?php $this->_('Centovacast.tab_client_stats.bandwidth_title');?></label>
                     <?php
-    $bandwidth = [
-        'used' => round($account_info->cachedtransfer ?? 0, 2),
-        'limit' => round($account_info->transferlimit ?? 0, 2)
-    ];
-    $unlimited = ($account_info->transferlimit == 'unlimited' || $bandwidth['limit'] == 0);
-    $percent_used = ($unlimited ? 0 : round(($bandwidth['used'] / $bandwidth['limit']) * 100, 0));
-    ?>
+                    $bandwidth = [
+                    'used' => round($account_info->cachedtransfer ?? 0, 2),
+                    'limit' => round($account_info->transferlimit ?? 0, 2)
+                    ];
+                    $unlimited = ($account_info->transferlimit == 'unlimited' || $bandwidth['limit'] == 0);
+                    $percent_used = ($unlimited ? 0 : round(($bandwidth['used'] / $bandwidth['limit']) * 100, 0));
+                    ?>
 <small>
     <?php echo $unlimited ? $this->_('Centovacast.tab_client_stats.usage_unlimited', true, $this->Html->safe($bandwidth['used'])) : $this->_('Centovacast.tab_client_stats.usage', true, $this->Html->safe($bandwidth['used']), $this->Html->safe($bandwidth['limit']));?>
 </small>

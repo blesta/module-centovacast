@@ -27,22 +27,20 @@
                 $this->Form->create(
                     $this->Html->safe(
                         'http://' .
-                            (isset($module_row->meta->hostname) ? $module_row->meta->hostname : null) .
+                            ($module_row->meta->hostname ?? null) .
                             ':' .
-                            (isset($module_row->meta->port) ? $module_row->meta->port : null) .
+                            ($module_row->meta->port ?? null) .
                             '/login/index.php',
                     ),
                     ['target' => '_blank'],
                 );
                 $this->Form->fieldHidden(
                     'username',
-                    isset($service_fields->centovacast_username) ? $service_fields->centovacast_username : null,
+                    $service_fields->centovacast_username ?? null,
                 );
                 $this->Form->fieldHidden(
                     'password',
-                    isset($service_fields->centovacast_adminpassword)
-                        ? $service_fields->centovacast_adminpassword
-                        : null,
+                    $service_fields->centovacast_adminpassword ?? null,
                 );
                 $this->Form->fieldHidden('login', 'Login');
                 ?>
