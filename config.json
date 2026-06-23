@@ -42,5 +42,8 @@
             "centovacast_genre"
         ]
     },
-    "icon": "bi-broadcast"
+    "logo": {
+        "light": "views/default/images/logo.png",
+        "dark": "views/default/images/logo-dark.png"
+    }
 }
