@@ -1,5 +1,5 @@
 {
-    "version": "2.0.0",
+    "version": "2.0.1",
     "name": "Centovacast.name",
     "description": "Centovacast.description",
     "authors": [
@@ -42,5 +42,8 @@
             "centovacast_genre"
         ]
     },
-    "icon": "bi-broadcast"
+    "logo": {
+        "light": "views/default/images/logo.png",
+        "dark": "views/default/images/logo-dark.png"
+    }
 }
