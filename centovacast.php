@@ -1525,7 +1525,15 @@ class Centovacast extends Module
         $accounts = false;
 
         try {
-            $output = $this->parseResponse($api->listAccounts());
+            $response = $api->listAccounts();
+
+            // The API returns an error response when the server has no accounts yet,
+            // which is not an actual error
+            if (($response->type ?? '') === 'error') {
+                return 0;
+            }
+
+            $output = $this->parseResponse($response);
             $accounts = count($output);
         } catch (Exception $e) {
             // Nothing to do
